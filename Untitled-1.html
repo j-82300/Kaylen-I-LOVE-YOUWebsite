@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Heartsss for Kaylennn</title>
+  <style>
+    body {
+      cursor: url('kaylennn.png') 32 32, auto;
+      background: linear-gradient(135deg, #ffb6d9, #ffd6ec);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Hide audio element completely */
+    audio {
+      display: none;
+    }
+
+    /* ✨ LOFI GRAIN OVERLAY */
+    .grain {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('heart.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.15;
+      mix-blend-mode: overlay;
+      animation: grainMove 1.5s steps(2) infinite;
+    }
+
+    @keyframes grainMove {
+      0% { transform: translate(0,0); }
+      10% { transform: translate(-5px, -5px); }
+      20% { transform: translate(5px, -5px); }
+      30% { transform: translate(-5px, 5px); }
+      40% { transform: translate(5px, 5px); }
+      50% { transform: translate(0,0); }
+      100% { transform: translate(0,0); }
+    }
+
+    /* ✨ FLOATING HEARTS */
+    .floating-heart {
+      position: absolute;
+      font-size: 30px;
+      opacity: 0.7;
+      animation: floatUp 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(50px); opacity: 0.7; }
+      to { transform: translateY(-500px); opacity: 0; }
+    }
+
+    /* ✨ FLOATING PETALS */
+    .petal {
+      position: absolute;
+      font-size: 25px;
+      opacity: 0.8;
+      animation: petalFall 7s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes petalFall {
+      from { transform: translateY(-50px) rotate(0deg); opacity: 0.8; }
+      to { transform: translateY(600px) rotate(360deg); opacity: 0; }
+    }
+
+    /* ✨ SPARKLES */
+    .sparkle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 60%;
+      opacity: 0.8;
+      animation: sparkleTwinkle 2s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sparkleTwinkle {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.8); opacity: 0.3; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+
+    /* ✨ LOVE METER */
+    #loveMeterContainer {
+      position: absolute;
+      top: 20px;
+      width: 80%;
+      height: 20px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(255,105,180,0.5);
+    }
+
+    #loveMeter {
+      height: 100%;
+      width: 0%;
+      background: hotpink;
+      transition: width 1s ease;
+    }
+
+    /* ✨ SECOND MESSAGE */
+    #secondMessage {
+      font-size: 40px;
+      color: #ff4da6;
+      font-weight: bold;
+      margin-top: 10px;
+      display: none;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    #heart {
+      font-size: 150px;
+      cursor: pointer;
+      transition: transform 0.4s ease, filter 0.4s ease;
+      filter: drop-shadow(0 0 25px hotpink);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    #message {
+      font-size: 60px;
+      color: hotpink;
+      font-weight: bold;
+      margin-top: 20px;
+      display: none;
+      text-align: center;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    #smiley {
+      font-size: 120px;
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    @keyframes fall {
+      from { transform: translateY(0); }
+      to { transform: translateY(100vh); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ✨ Play Button */
+    #playButton {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 50px;
+      background: rgba(255,255,255,0.3);
+      padding: 10px 20px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(255,105,180,0.5);
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    #playButton:hover {
+      transform: scale(1.2);
+      background: rgba(255,255,255,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grain"></div>
+
+  <div id="loveMeterContainer">
+    <div id="loveMeter"></div>
+  </div>
+
+  <div id="floating-container"></div>
+
+  <div id="heart">💗</div>
+  <div id="message">I LOVE YOU THIS MUCH KAYLENNNN!!!!!</div>
+  <div id="smiley">😊</div>
+  <div id="secondMessage">AND EVEN MORE THAN THAT 💕</div>
+  <div class="confetti" id="confetti"></div>
+
+  <!-- Play Button -->
+  <div id="playButton">⏸️</div>
+
+  <!-- Hidden Audio Player -->
+  <audio id="radio" autoplay loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    /* ⭐ Autoplay Fix */
+    window.addEventListener("load", () => {
+      const audio = document.getElementById("radio");
+      audio.play().catch(() => {});
+    });
+
+    /* ⭐ Play Button Logic */
+    const audio = document.getElementById("radio");
+    const playButton = document.getElementById("playButton");
+
+    let isPlaying = true;
+
+    playButton.addEventListener("click", () => {
+      if (isPlaying) {
+        audio.pause();
+        playButton.innerText = "▶️";
+      } else {
+        audio.play();
+        playButton.innerText = "⏸️";
+      }
+      isPlaying = !isPlaying;
+    });
+
+    /* ⭐ Floating Hearts + Petals + Sparkles */
+    const floatingContainer = document.getElementById("floating-container");
+
+    setInterval(() => {
+      const h = document.createElement("div");
+      h.classList.add("floating-heart");
+      h.innerText = "💗";
+      h.style.left = Math.random() * window.innerWidth + "px";
+      h.style.bottom = "-50px";
+      h.style.animationDuration = (4 + Math.random() * 4) + "s";
+      floatingContainer.appendChild(h);
+      setTimeout(() => h.remove(), 6000);
+    }, 800);
+
+    setInterval(() => {
+      const p = document.createElement("div");
+      p.classList.add("petal");
+      p.innerText = "🌸";
+      p.style.left = Math.random() * window.innerWidth + "px";
+      p.style.top = "-50px";
+      p.style.animationDuration = (5 + Math.random() * 4) + "s";
+      floatingContainer.appendChild(p);
+      setTimeout(() => p.remove(), 7000);
+    }, 1200);
+
+    setInterval(() => {
+      const s = document.createElement("div");
+      s.classList.add("sparkle");
+      s.style.left = Math.random() * window.innerWidth + "px";
+      s.style.top = Math.random() * window.innerHeight + "px";
+      floatingContainer.appendChild(s);
+      setTimeout(() => s.remove(), 2000);
+    }, 300);
+
+    /* ⭐ Heart Click Event */
+    const heart = document.getElementById("heart");
+    const message = document.getElementById("message");
+    const smiley = document.getElementById("smiley");
+    const secondMessage = document.getElementById("secondMessage");
+    const confettiContainer = document.getElementById("confetti");
+    const loveMeter = document.getElementById("loveMeter");
+
+    heart.addEventListener("click", () => {
+      heart.style.transform = "scale(1.5)";
+      message.style.display = "block";
+      smiley.style.display = "block";
+
+      loveMeter.style.width = "100%";
+
+      setTimeout(() => {
+        secondMessage.style.display = "block";
+      }, 1500);
+
+      for (let i = 0; i < 150; i++) {
+        const piece = document.createElement("div");
+        piece.style.position = "absolute";
+        piece.style.width = "10px";
+        piece.style.height = "10px";
+        piece.style.backgroundColor = getRandomColor();
+        piece.style.top = "-20px";
+        piece.style.left = Math.random() * window.innerWidth + "px";
+        piece.style.opacity = 0.8;
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+        piece.style.animation = `fall ${1 + Math.random() * 2}s linear forwards`;
+        confettiContainer.appendChild(piece);
+        setTimeout(() => piece.remove(), 3000);
+      }
+    });
+
+    function getRandomColor() {
+      const colors = ["#ff66b3", "#ff99cc", "#ff4da6", "#ff80bf", "#ffb3d9"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  </script>
+
+</body>
+</html>
